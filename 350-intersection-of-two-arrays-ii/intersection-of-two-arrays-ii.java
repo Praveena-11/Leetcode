@@ -1,24 +1,26 @@
 class Solution {
     public int[] intersect(int[] nums1, int[] nums2) {
-    Arrays.sort(nums1);
-    Arrays.sort(nums2);
-
-    List<Integer> result = new ArrayList<>();
-    int i = 0, j = 0;
-
-    while (i < nums1.length && j < nums2.length) {
-        if (nums1[i] == nums2[j]) {
-            result.add(nums1[i]);
-            i++;
-            j++;
-        } else if (nums1[i] < nums2[j]) {
-            i++;
-        } else {
-            j++;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        ArrayList<Integer> result = new ArrayList<>();
+        
+ 
+        for (int num : nums1) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
         }
+
+        for (int num : nums2) {
+            if (map.containsKey(num) && map.get(num) > 0) {
+                result.add(num);
+                map.put(num, map.get(num) - 1);
+            }
+        }
+
+        int[] res = new int[result.size()];
+        for (int i = 0; i < result.size(); i++) {
+            res[i] = result.get(i);
+        }
+        
+        return res;
+        
     }
-
-    return result.stream().mapToInt(k -> k).toArray();
-}
-
 }
