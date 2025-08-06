@@ -5,7 +5,7 @@ class Solution {
             if(nums[i]!=i){
                 return i;
             }
-          }
-    return nums.length;
+        }
+        return nums.length;
   }
 }
